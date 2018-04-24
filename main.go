@@ -20,7 +20,7 @@ type Config struct {
 }
 
 var newMessageInstructions = map[string]func(*dg.Session, *dg.MessageCreate){
-	"~headsortails": headsTails,
+	"$headsortails": headsTails,
 }
 
 func headsTails(s *dg.Session, m *dg.MessageCreate) {
@@ -30,6 +30,14 @@ func headsTails(s *dg.Session, m *dg.MessageCreate) {
 	} else {
 		s.ChannelMessageSend(m.ChannelID, "Tails")
 	}
+}
+
+func help(s *dg.Session, m *dg.MessageCreate) {
+	out := "The following instructions are available:\n$help\n"
+	for k := range newMessageInstructions {
+		out += k + "\n"
+	}
+	s.ChannelMessageSend(m.ChannelID, out)
 }
 
 func swear() {
@@ -70,9 +78,14 @@ func readConfig(cfg *Config) {
 }
 
 func newMessage(s *dg.Session, m *dg.MessageCreate) {
-
-	keyWord := strings.Split(m.Content, " ")[0]
-	if val, ok := newMessageInstructions[keyWord]; ok {
-		val(s, m)
+	if m.Content[0] == '$' {
+		keyWord := strings.Split(m.Content, " ")[0]
+		if val, ok := newMessageInstructions[keyWord]; ok {
+			val(s, m)
+		}
+		if keyWord == "$help" {
+			help(s, m)
+		}
 	}
+
 }

@@ -142,7 +142,7 @@ func writeConfig(cfg interface{}, fileName string) {
 
 func newMessage(s *dg.Session, m *dg.MessageCreate) {
 	if !m.Author.Bot {
-		if m.Content[0] == '$' {
+		if len(m.Content) > 0 && m.Content[0] == '$' {
 			keyWord := strings.Split(m.Content, " ")[0]
 			if val, ok := newMessageInstructions[keyWord]; ok {
 				val(s, m)

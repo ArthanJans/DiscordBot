@@ -151,22 +151,14 @@ func newMessage(s *dg.Session, m *dg.MessageCreate) {
 				help(s, m)
 			}
 		}
-
-		for _, word := range strings.Split(m.Content, " ") {
-			found := false
-			for _, swearWord := range swearWords {
-				if swearWord["word"] == strings.ToLower(word) {
-					for _, channelid := range mem.ChristianChannels {
-						if channelid == m.ChannelID {
-							swear(s, m)
-							break
-						}
+		for _, swearWord := range swearWords {
+			if strings.Contains(strings.ToLower(m.Content), swearWord["word"]) {
+				for _, channelid := range mem.ChristianChannels {
+					if channelid == m.ChannelID {
+						swear(s, m)
+						break
 					}
-					found = true
-					break
 				}
-			}
-			if found {
 				break
 			}
 		}

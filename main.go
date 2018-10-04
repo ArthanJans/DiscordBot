@@ -52,7 +52,7 @@ func doot(s *dg.Session, m *dg.MessageCreate) {
 			},
 		},
 	}
-	s.ChannelMessageSend(m.ChannelID, ms)
+	s.ChannelMessageSendComplex(m.ChannelID, ms)
 }
 
 func christian(s *dg.Session, m *dg.MessageCreate) {

@@ -34,14 +34,19 @@ var newMessageInstructions = map[string]func(*dg.Session, *dg.MessageCreate){
 }
 
 func doot(s *dg.Session, m *dg.MessageCreate) {
-	ms := &discordgo.MessageSend{
-		Embed: &discordgo.MessageEmbed{
-			Image: &discordgo.MessageEmbedImage{
-				URL: "attachment://" + doot.jpg,
+	f, err := os.Open("doot.jpg")
+	if err != nil {
+	    return nil, err
+	}
+	defer f.Close()
+	ms := &dg.MessageSend{
+		Embed: &dg.MessageEmbed{
+			Image: &dg.MessageEmbedImage{
+				URL: "attachment://" + "doot.jpg",
 			},
 		},
-		Files: []*discordgo.File{
-			&discordgo.File{
+		Files: []*dg.File{
+			&dg.File{
 				Name:   fileName,
 				Reader: f,
 			},

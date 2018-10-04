@@ -36,7 +36,7 @@ var newMessageInstructions = map[string]func(*dg.Session, *dg.MessageCreate){
 func doot(s *dg.Session, m *dg.MessageCreate) {
 	f, err := os.Open("doot.jpg")
 	if err != nil {
-	    return nil, err
+	    return
 	}
 	defer f.Close()
 	ms := &dg.MessageSend{
@@ -47,7 +47,7 @@ func doot(s *dg.Session, m *dg.MessageCreate) {
 		},
 		Files: []*dg.File{
 			&dg.File{
-				Name:   fileName,
+				Name:   "doot.jpg",
 				Reader: f,
 			},
 		},

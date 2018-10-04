@@ -30,6 +30,24 @@ type swearWord struct {
 var newMessageInstructions = map[string]func(*dg.Session, *dg.MessageCreate){
 	"$headsortails": headsTails,
 	"$christian":    christian,
+	"$doot": 	 doot,
+}
+
+func doot(s *dg.Session, m *dg.MessageCreate) {
+	ms := &discordgo.MessageSend{
+		Embed: &discordgo.MessageEmbed{
+			Image: &discordgo.MessageEmbedImage{
+				URL: "attachment://" + doot.jpg,
+			},
+		},
+		Files: []*discordgo.File{
+			&discordgo.File{
+				Name:   fileName,
+				Reader: f,
+			},
+		},
+	}
+	s.ChannelMessageSend(m.ChannelID, ms)
 }
 
 func christian(s *dg.Session, m *dg.MessageCreate) {

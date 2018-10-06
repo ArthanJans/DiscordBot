@@ -31,6 +31,12 @@ var newMessageInstructions = map[string]func(*dg.Session, *dg.MessageCreate){
 	"$headsortails": headsTails,
 	"$christian":    christian,
 	"$doot": 	 doot,
+	"$spook":        spookyScarySkeletons,
+}
+
+func spookyScarySkeletons(s *dg.Session, m *dg.MessageCreate) {
+	// Sends in the original "Spooky Scary Skeletons" video
+	s.ChannelMessageSend(m.ChannelID, "https://www.youtube.com/watch?v=XTgFtxHhCQ0")
 }
 
 func doot(s *dg.Session, m *dg.MessageCreate) {
